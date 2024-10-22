@@ -1,17 +1,13 @@
 class Solution {
-    int f(int n,ArrayList<Integer> dp)
-    {
+    public int climb(int n,int[] dp){
         if(n==0) return 1;
         if(n==1) return 1;
-        if(dp.get(n)!=-1) return dp.get(n);
-        dp.set(n,f(n-1,dp)+f(n-2,dp));
-        return dp.get(n);
+        if(dp[n]!=-1) return dp[n];
+        return dp[n]=climb(n-1,dp)+climb(n-2,dp);
     }
     public int climbStairs(int n) {
-        ArrayList<Integer> dp=new ArrayList<>();
-        for(int i=0;i<=n;i++){
-            dp.add(-1);
-        }
-        return f(n,dp);
+        int[] dp=new int[n+1];
+        Arrays.fill(dp,-1);
+        return climb(n,dp);
     }
 }
