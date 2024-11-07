@@ -1,15 +1,23 @@
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
+        
         List<List<Integer>> result = new ArrayList<>();
-        backtrack(nums,0,new ArrayList<>(),result);
+        List<Integer> currResult = new ArrayList<>();
+        constructSubSet(nums, 0, currResult, result);
+
         return result;
     }
-    private void backtrack(int[]nums, int start, List<Integer> path, List<List<Integer>> result){
-        result.add(new ArrayList<>(path));
-        for(int i=start ;i<nums.length;i++){
-            path.add(nums[i]);
-            backtrack(nums,i+1,path,result);
-            path.remove(path.size()-1);
+
+    private void constructSubSet(int[] nums, int index, List<Integer> currResult, List<List<Integer>> result) {
+    
+        if (index == nums.length) {
+            result.add(new ArrayList<>(currResult));
+            return;
         }
+
+        currResult.add(nums[index]);
+        constructSubSet(nums, index+1, currResult, result);
+        currResult.remove(currResult.size() - 1);
+        constructSubSet(nums, index + 1, currResult, result);
     }
 }
